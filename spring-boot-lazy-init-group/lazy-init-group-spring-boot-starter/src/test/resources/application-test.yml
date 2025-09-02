@@ -1,0 +1,11 @@
+lazy-init:
+  enabled: true
+  exclude-groups:
+    - groupA
+    - groupB
+  groups:
+    - groupC
+
+logging:
+  level:
+    com.synapse.lazy_init_group_spring_boot_starter.config.LazyInitProperties: DEBUG

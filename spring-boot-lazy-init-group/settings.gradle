@@ -1,0 +1,4 @@
+rootProject.name = 'spring-boot-lazy-init-group'
+
+include ('lazy-init-group-api')
+include ('lazy-init-group-spring-boot-starter')
