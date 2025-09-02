@@ -1,0 +1,53 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+}
+
+group = 'com.github.DongHyeonKa'
+version = project.hasProperty('version') ? project.property('version') : '1.0.0-SNAPSHOT'
+
+dependencies {
+	// lazy-init-group-api
+    api project(':lazy-init-group-api')
+
+    // Spring Boot Starter
+    implementation 'org.springframework.boot:spring-boot-starter'
+    
+    // AOP
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
+
+    // Test
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    
+    // JUnit Platform
+    testImplementation platform('org.junit:junit-bom:5.11.3')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation 'org.junit.platform:junit-platform-launcher'
+}
+
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+            artifactId = 'lazy-init-group-spring-boot-starter'
+            from components.java
+        }
+	}
+	repositories {
+        maven {
+            name = "GithubPackages"
+            url = "https://maven.pkg.github.com/DongHyeonKa/spring-boot-lazy-init-group"
+            credentials {
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+bootJar {
+    enabled = false
+}

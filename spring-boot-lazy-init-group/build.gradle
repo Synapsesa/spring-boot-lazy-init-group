@@ -1,0 +1,45 @@
+buildscript {
+	
+}
+
+plugins {
+	id 'java'
+    id 'io.spring.dependency-management' version '1.1.7' apply false
+}
+
+allprojects {
+	group = 'com.synapse.lazy-init'
+    version = '1.0.0-SNAPSHOT'
+    
+    ext {
+        springBootVersion = '3.5.4'
+    }
+
+	java {
+		toolchain {
+			languageVersion = JavaLanguageVersion.of(21)
+		}
+	}
+
+	repositories {
+		mavenCentral()
+	}
+}
+
+subprojects {
+	apply plugin: 'java'
+    apply plugin: 'io.spring.dependency-management'
+    
+    compileJava.options.encoding = 'UTF-8'
+    compileTestJava.options.encoding = 'UTF-8'
+
+	dependencyManagement {
+        imports {
+            mavenBom "org.springframework.boot:spring-boot-dependencies:${springBootVersion}"
+        }
+    }
+
+	dependencies {
+		
+	}
+}
